@@ -1,3 +1,4 @@
+from itertools import product
 
 # some useful functions to deal with some basics operations on biological sequences
 
@@ -36,6 +37,29 @@ def maxHomopolymerLength(seq):
                 lMaxHom = lCurHom
             lCurHom = 1
     return lMaxHom
+
+
+def degenToSet(degen):
+    """Take as input a degenerate sequence and return a list containing the corresponding non-degenerate sequences."""
+
+    conversion_table = {
+    'A': ['A'],
+    'C': ['C'],
+    'G': ['G'],
+    'T': ['T'],
+    'R': ['A', 'G'],
+    'Y': ['C', 'T'],
+    'S': ['G', 'C'],
+    'W': ['A', 'T'],
+    'K': ['G', 'T'],
+    'M': ['A', 'C'],
+    'B': ['C', 'G', 'T'],
+    'D': ['A', 'G', 'T'],
+    'H': ['A', 'C', 'T'],
+    'V': ['A', 'C', 'G'],
+    'N': ['A', 'C', 'G', 'T']}
+
+    return list(map("".join, product(*map(conversion_table.get, degen))))
 
 
 def loadFasta(filename):
